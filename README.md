@@ -1,0 +1,1 @@
+# lfs-dietetics-app-django
