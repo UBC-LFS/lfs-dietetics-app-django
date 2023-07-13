@@ -1,0 +1,22 @@
+<!-- Imports navigation bar and footer -->
+{% extends "generalTemplate.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+
+<div class="formContainer expand">
+    <h1 class="formTitle">Dietetics Major Application Form 2023</h1>
+
+    <form action="" method="post">
+        <table>
+            {% for input in form %}
+                <p>{{ input.label_tag }}
+                {{ input }}</p>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+
+{% endblock content %}

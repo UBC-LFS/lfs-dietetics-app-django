@@ -1,0 +1,11 @@
+.formContainer {
+    background: #FFFFFF;
+    min-height: 40vh;
+}
+.formTitle {
+    color: #002145;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    top: 50px;
+}
