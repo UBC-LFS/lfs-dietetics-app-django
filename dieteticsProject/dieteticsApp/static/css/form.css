@@ -1,4 +1,4 @@
-.formContainer {
+.formSiteContainer {
     background: #FFFFFF;
     min-height: 40vh;
 }
@@ -8,4 +8,79 @@
     margin: 0;
     position: relative;
     top: 50px;
+}
+
+.formContainer {
+    position: relative;
+    margin-top: 100px;
+    padding-bottom: 60px;
+    margin-bottom: 0;
+}
+
+label {
+    display: inline;
+}
+
+option {
+    margin: 10px;
+}
+
+.formPaddingRight {
+    /* margin-right: 100%; */
+}
+
+.formRight {
+    position: relative;
+    float: right;
+    right: 50px;
+}
+
+/* .formHelpText {
+    color: gray;
+    font-size: 1em;
+    width: 100px;
+} */
+
+.mandatoryQuestionsContainer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+@media only screen and (max-width: 1000px) {
+    .mandatoryQuestionsContainer {
+        grid-template-columns: 100%;
+    }
+    label {
+        display: inline;
+    }
+    .formRight {
+        position: relative;
+        display: block;
+        float: none;
+        right: 0px;
+        margin-bottom: -20px;
+    }
+}
+
+.aboriginalQuestionsContainer {
+    border: 2px solid black;
+    padding: 25px;
+}
+
+.submitFormBTN {
+    margin: 0 auto;
+    display: block;
+    margin-top: 40px;
+}
+
+.formFooter {
+    text-align: right;
+    padding-bottom: 20px;
+}
+
+
+@media only screen and (max-width: 750px) {
+    .formTitle {
+        font-size: 2em;
+    }
 }
