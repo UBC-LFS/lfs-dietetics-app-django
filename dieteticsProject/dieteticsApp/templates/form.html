@@ -8,9 +8,9 @@
 
 <div class="formSiteContainer expand">
     <h1 class="formTitle">Dietetics Major Application Form 2023</h1>
-    <!-- make 2 seperate columns -->
-    <!-- add hel text below in light grey -->
     <form class="formContainer" action="" method="post">
+        {% csrf_token %}
+
         <table>
             <div class="mandatoryQuestionsContainer">
                 {% for input in mandatoryQuestions %}
@@ -23,8 +23,6 @@
                     {% else %}
                         {{ input }}
                     {% endif %}
-
-
                     <br><br>
                     <!-- <p class="formHelpText">{{ input.help_text }}</p> -->
                 </div>
@@ -54,5 +52,7 @@
         <a href="https://dietpin.landfood.ubc.ca/Shibboleth.sso/Logout?return=https://dietetics.landfood.ubc.ca">CWL LOGOUT</a>
     </div>
 </div>
+
+<script src="{% static 'js/formValidation.js' %}" ></script>
 
 {% endblock content %}

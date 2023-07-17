@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 
 # Create your models here.
 class ApplicationForm(forms.Form):
+    # Mandatory fields
     lastName = forms.CharField(max_length=100, label="Last name", help_text="Your last name")
     firstName = forms.CharField(max_length=100, label="First name")
     cei = forms.CharField(max_length=100, label="Current Educational Institution")
@@ -25,9 +26,10 @@ class ApplicationForm(forms.Form):
                                                     ('4', '4'),
                                                     ("5+", '5+'),
                                               ]))
-    aboriginal = forms.ChoiceField(label="Do you identify yourself as an Aboriginal person of Canada?", widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')])
-    aboriginalChoices = forms.ChoiceField(label="If this is not your first time applying to the program, how many times have you applied in the past?", 
-                                            widget=forms.RadioSelect, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')])
+    # Optional fields
+    aboriginal = forms.ChoiceField(label="Do you identify yourself as an Aboriginal person of Canada?", widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')], required=False)
+    aboriginalChoices = forms.ChoiceField(label="Do you identify with one or more of the following?", 
+                                            widget=forms.RadioSelect, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')], required=False)
 
     class Meta:
         ordering = ['lastName', 'firstName']
@@ -35,3 +37,4 @@ class ApplicationForm(forms.Form):
     def __str__(self):
         return self.name
     
+
