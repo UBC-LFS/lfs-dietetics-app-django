@@ -1,6 +1,7 @@
 from django.http import HttpResponse # Only for creating pages without a .html file
 from django.shortcuts import render
-from .models import ApplicationForm
+from .models import Constants
+from .forms import ApplicationForm
 
 # Create your views here.
 def index(request):
@@ -10,6 +11,8 @@ def index(request):
             formData = request.POST
             # valid cwl and student #??
             if (formData["studentEmail"] == formData["vertifyStudentEmail"] and formData["preferredEmail"] == formData["vertifyPreferredEmail"]):
+                # Save to database
+                form.save()
                 return HttpResponse("<p>Thanks! Your application has been submitted!</p>")
         else:
             print(form.errors)
@@ -25,9 +28,22 @@ def index(request):
             optionalQuestions.append(input)
         else:
             mandatoryQuestions.append(input)
+    
+    try:
+        for constant in Constants.objects.all():
+            if (str(constant) == "year"):
+                year = constant.value
+    except:
+        pass
+            
+    # If no year found from constants
+    if 'year' not in locals():
+        year = "(YEAR UNDEFINED)" 
+
     context = {
         "mandatoryQuestions": mandatoryQuestions,
-        "optionalQuestions": optionalQuestions
+        "optionalQuestions": optionalQuestions,
+        "year": year
     }
     return render(request, "form.html", context=context)
 

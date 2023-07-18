@@ -1,40 +1,48 @@
 import datetime
 from django.db import models
 from django import forms
-from django.utils.safestring import mark_safe
 
-# Create your models here.
-class ApplicationForm(forms.Form):
-    # Mandatory fields
-    lastName = forms.CharField(max_length=100, label="Last name", help_text="Your last name")
-    firstName = forms.CharField(max_length=100, label="First name")
-    cei = forms.CharField(max_length=100, label="Current Educational Institution")
-    studentNumber = forms.IntegerField(label="UBC Student Number")
-    studentEmail = forms.EmailField(max_length=100, label=mark_safe('UBC Student Email Address (sign up <a href="https://www.myaccount.ubc.ca/myAccount/" target="_blank" rel="noopener noreferrer">here</a>)'))
-    vertifyStudentEmail = forms.CharField(max_length=100, label="Verify UBC Student Email Address")
-    preferredEmail = forms.EmailField(max_length=100, label="Preferred Email Address")
-    vertifyPreferredEmail = forms.EmailField(max_length=100, label="Verify Preferred Email Address")
-    phoneNumber = forms.IntegerField(label="Phone Number")
-    birthday = forms.DateField(label="Birthday (yyyy-mm-dd)")
-    firstApp = forms.ChoiceField(label="Is this your first application to the UBC Dietetics Major?", widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')])
-    appTimesDropdown = forms.NullBooleanField(label="If this is not your first time applying to the program, how many times have you applied in the past?", 
-                                              widget=forms.Select(choices=[
-                                                    ('0', '0'),
-                                                    ('1', '1'),
-                                                    ('2', '2'),
-                                                    ('3', '3'),
-                                                    ('4', '4'),
-                                                    ("5+", '5+'),
-                                              ]))
-    # Optional fields
-    aboriginal = forms.ChoiceField(label="Do you identify yourself as an Aboriginal person of Canada?", widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')], required=False)
-    aboriginalChoices = forms.ChoiceField(label="Do you identify with one or more of the following?", 
-                                            widget=forms.RadioSelect, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')], required=False)
+class Constants(models.Model):
+    name = models.CharField(max_length=100)
+    value = models.CharField(max_length=100)
 
     class Meta:
-        ordering = ['lastName', 'firstName']
+        ordering = ['name', 'value']
 
     def __str__(self):
         return self.name
     
+# Create your models here.
+class Application(models.Model):
+    # CWL
+    
+    # 
 
+    # Form
+    # Mandatory fields
+    lastName = models.CharField(max_length=100)
+    firstName = models.CharField(max_length=100)
+    cei = models.CharField(max_length=100)
+    studentNumber = models.IntegerField()
+    studentEmail = models.EmailField(max_length=100)
+    vertifyStudentEmail = models.CharField(max_length=100)
+    preferredEmail = models.EmailField(max_length=100)
+    vertifyPreferredEmail = models.EmailField(max_length=100)
+    phoneNumber = models.BigIntegerField()
+    birthday = models.DateField()
+    firstApp = models.CharField(max_length=10, choices=(('True', 'Yes'), ('False', 'No')))
+    appTimesDropdown = models.CharField(max_length=2, choices=(
+        ('0', '0'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ("5+", '5+'),
+    ))
+    # Optional fields
+    aboriginal = models.CharField(max_length=10, choices=[('True', 'Yes'), ('False', 'No')])
+    aboriginalChoices = models.CharField(max_length=100, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')])
+
+
+    def __str__(self):
+        return self.name

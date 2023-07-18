@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/form.css' %}" />
 
 <div class="formSiteContainer expand">
-    <h1 class="formTitle">Dietetics Major Application Form 2023</h1>
+    <h1 class="formTitle">Dietetics Major Application Form {{ year }}</h1>
     <form class="formContainer" action="" method="post">
         {% csrf_token %}
 
