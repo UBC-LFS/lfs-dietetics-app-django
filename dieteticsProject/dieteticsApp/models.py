@@ -15,8 +15,11 @@ class Constants(models.Model):
 # Create your models here.
 class Application(models.Model):
     # CWL
-    
-    # 
+    cwl = models.CharField(max_length=100)
+    # Application number
+    applicationNumber = models.CharField(max_length=100)
+    # Date applied
+    dateApplied = models.DateTimeField()
 
     # Form
     # Mandatory fields
@@ -40,9 +43,8 @@ class Application(models.Model):
         ("5+", '5+'),
     ))
     # Optional fields
-    aboriginal = models.CharField(max_length=10, choices=[('True', 'Yes'), ('False', 'No')])
-    aboriginalChoices = models.CharField(max_length=100, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')])
+    aboriginal = models.CharField(max_length=10, choices=[('True', 'Yes'), ('False', 'No')], blank=True, null=True)
+    aboriginalChoices = models.CharField(max_length=100, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')], blank=True, null=True)
 
-
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name

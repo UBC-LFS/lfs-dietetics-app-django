@@ -1,10 +1,34 @@
+import random
+from datetime import datetime
+
 from django.http import HttpResponse # Only for creating pages without a .html file
 from django.shortcuts import render
-from .models import Constants
+from .models import Constants, Application
 from .forms import ApplicationForm
+
+# Stores current applicant's application number so it remains the same on front + backend when submitting or if an error occurs
+applicants = {
+
+}
 
 # Create your views here.
 def index(request):
+    cwl = "bobl1" + str(random.randint(1,9))
+    print(applicants)
+    if (cwl in applicants):
+        applicationNumber = applicants[cwl]
+    else:
+        # Create application number and verify that it is not being used
+        applicationNumberUsed = True
+        while applicationNumberUsed:
+            applicationNumberUsed = False
+            applicationNumber = random.randint(1000000, 3000000)
+            for application in Application.objects.all():
+                if (int(application.applicationNumber) == int(applicationNumber)):
+                    applicationNumberUsed = True
+
+        applicants[cwl] = applicationNumber
+
     if request.method == "POST":
         form = ApplicationForm(request.POST)
         if form.is_valid():
@@ -12,7 +36,27 @@ def index(request):
             # valid cwl and student #??
             if (formData["studentEmail"] == formData["vertifyStudentEmail"] and formData["preferredEmail"] == formData["vertifyPreferredEmail"]):
                 # Save to database
-                form.save()
+                applicant = Application()
+                applicant.cwl = cwl
+                applicant.applicationNumber = applicationNumber
+                applicant.dateApplied = datetime.now()
+                applicant.lastName = formData["lastName"]
+                applicant.firstName = formData["firstName"]
+                applicant.cei = formData["cei"]
+                applicant.studentNumber = formData["studentNumber"]
+                applicant.studentEmail = formData["studentEmail"]
+                applicant.vertifyStudentEmail = formData["vertifyStudentEmail"]
+                applicant.preferredEmail = formData["preferredEmail"]
+                applicant.vertifyPreferredEmail = formData["vertifyPreferredEmail"]
+                applicant.phoneNumber = formData["phoneNumber"]
+                applicant.birthday = formData["birthday"]
+                applicant.firstApp = formData["firstApp"]
+                applicant.appTimesDropdown = formData["appTimesDropdown"]
+                applicant.aboriginal = formData["aboriginal"]
+                applicant.aboriginalChoices = formData["aboriginalChoices"]
+                
+                applicant.save()
+          
                 return HttpResponse("<p>Thanks! Your application has been submitted!</p>")
         else:
             print(form.errors)
@@ -43,7 +87,8 @@ def index(request):
     context = {
         "mandatoryQuestions": mandatoryQuestions,
         "optionalQuestions": optionalQuestions,
-        "year": year
+        "year": year,
+        "applicationNumber": applicationNumber
     }
     return render(request, "form.html", context=context)
 
