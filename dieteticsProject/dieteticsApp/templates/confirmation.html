@@ -1,0 +1,23 @@
+<!-- Imports navigation bar and footer -->
+{% extends "generalTemplate.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+
+<div class="formSiteContainer expand">
+    <h1 class="formTitle">Dietetics Major Application Form {{ year }}</h1>
+    <p class="applicationNumber"><strong>Application Number:</strong> {{ applicationNumber }}</p>
+
+    <p class="confirmationMessage" style="color:#002145; font-size: 2em; margin-top: 100px; line-height: 1.5em;">Thank you for your application.</br>Please keep this application number as a reference: {{ applicationNumber }}<p>
+    
+    <div class="formFooter">
+        <p>For assistance contact <a href="mailto:it@landfood.ubc.ca" target="_top">it@landfood.ubc.ca</a></p>
+        <a href="https://dietpin.landfood.ubc.ca/Shibboleth.sso/Logout?return=https://dietetics.landfood.ubc.ca">CWL LOGOUT</a>
+    </div>
+</div>
+
+<script src="{% static 'js/formValidation.js' %}" ></script>
+
+{% endblock content %}

@@ -16,6 +16,8 @@ class Constants(models.Model):
 class Application(models.Model):
     # CWL
     cwl = models.CharField(max_length=100)
+    # shibSN <-- from cwl authentication
+    
     # Application number
     applicationNumber = models.CharField(max_length=100)
     # Date applied

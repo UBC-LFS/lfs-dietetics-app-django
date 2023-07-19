@@ -13,6 +13,9 @@ applicants = {
 
 # Create your views here.
 def index(request):
+    return render(request, "index.html")
+
+def form(request):
     cwl = "bobl1" + str(random.randint(1,9))
     print(applicants)
     if (cwl in applicants):
@@ -57,7 +60,11 @@ def index(request):
                 
                 applicant.save()
           
-                return HttpResponse("<p>Thanks! Your application has been submitted!</p>")
+                context = {
+                    "applicationNumber": applicationNumber
+                }
+                return render(request, "confirmation.html", context=context)
+        
         else:
             print(form.errors)
     
@@ -91,13 +98,3 @@ def index(request):
         "applicationNumber": applicationNumber
     }
     return render(request, "form.html", context=context)
-
-# def submitApp(request):
-#     if request.method == "POST":
-#         form = ApplicationForm(request.POST)
-#         if form.is_valid():
-#             return HttpResponse("<p>Thank!</p>")
-#         else:
-#             form = ApplicationForm()
-#             print("ERROR")
-#         return render(request, "form.html", {"form": form})
