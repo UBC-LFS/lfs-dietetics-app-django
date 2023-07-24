@@ -5,13 +5,17 @@
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+
 
 <div class="formSiteContainer expand">
     <h1 class="formTitle">Dietetics Major Application Form {{ year }}</h1>
     
-    <div style="margin-top: 200px; margin-bottom:200px; position: relative;">
-        <a href="./application">CWL Login</a>
-    </div>
+    {% if applicationsAreOpen %}
+        <a class="applyButton" href="./application">Apply</a>
+    {% else %}
+        <p class="appsClosed">Applications are currently closed!</p>
+    {% endif %}
     
     <div class="formFooter">
         <p>For assistance contact <a href="mailto:it@landfood.ubc.ca" target="_top">it@landfood.ubc.ca</a></p>

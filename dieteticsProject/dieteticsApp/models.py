@@ -2,10 +2,11 @@ import datetime
 from django.db import models
 from django import forms
 
-class Constants(models.Model):
+class Constant(models.Model):
     name = models.CharField(max_length=100)
     value = models.CharField(max_length=100)
-
+    helpText = models.CharField(max_length=100)
+    
     class Meta:
         ordering = ['name', 'value']
 

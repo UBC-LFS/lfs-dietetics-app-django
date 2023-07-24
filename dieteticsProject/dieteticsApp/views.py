@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.http import HttpResponse # Only for creating pages without a .html file
 from django.shortcuts import render
-from .models import Constants, Application
+from .models import Constant, Application
 from .forms import ApplicationForm
 
 # Stores current applicant's application number so it remains the same on front + backend when submitting or if an error occurs
@@ -13,9 +13,28 @@ applicants = {
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    try:
+        for constant in Constant.objects.all():
+            if (str(constant) == "applicationsOpen"):
+                applicationsOpen = datetime.strptime(constant.value, '%Y-%m-%d')
+            if (str(constant) == "applicationsClose"):
+                applicationsClose = datetime.strptime(constant.value, '%Y-%m-%d')
+
+        applicationsAreOpen = datetime.now() >= applicationsOpen and datetime.now() <= applicationsClose
+
+    except:
+        # default value if no applicationsOpen or applicationsClose constants declared
+        applicationsAreOpen = False
+
+    context = {
+        "applicationsAreOpen": applicationsAreOpen
+    }
+    return render(request, "index.html", context=context)
 
 def form(request):
+    # redirect to login to cwl??
+    # get cwl and shibSN?
+    
     cwl = "bobl1" + str(random.randint(1,9))
     print(applicants)
     if (cwl in applicants):
@@ -81,7 +100,7 @@ def form(request):
             mandatoryQuestions.append(input)
     
     try:
-        for constant in Constants.objects.all():
+        for constant in Constant.objects.all():
             if (str(constant) == "year"):
                 year = constant.value
     except:

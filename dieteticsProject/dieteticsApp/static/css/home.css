@@ -1,0 +1,24 @@
+
+.applyButton {
+    position: relative; 
+    background: #002145; 
+    padding: 10px 15px; 
+    width: 100px; 
+    color:white; 
+    text-align: center; 
+    text-decoration: none; 
+    display: block;
+    margin: 100px auto;
+}
+
+ .applyButton:hover {
+    background: #2f5d7c;
+    color: white;
+ }
+
+ .appsClosed {
+    position: relative; 
+    text-align: center; 
+    display: block;
+    margin: 100px auto;
+ }
