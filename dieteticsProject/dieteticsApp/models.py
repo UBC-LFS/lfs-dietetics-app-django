@@ -8,6 +8,7 @@ class Constant(models.Model):
     helpText = models.CharField(max_length=100)
     
     class Meta:
+        verbose_name = "Constant"
         ordering = ['name', 'value']
 
     def __str__(self):
@@ -49,5 +50,7 @@ class Application(models.Model):
     aboriginal = models.CharField(max_length=10, choices=[('True', 'Yes'), ('False', 'No')], blank=True, null=True)
     aboriginalChoices = models.CharField(max_length=100, choices=[("First Nations", 'First Nations'), ("Métis", 'Métis'), ("Inuit", 'Inuit')], blank=True, null=True)
 
+    class Meta:
+        verbose_name = "Applicant"
     # def __str__(self):
     #     return self.name
